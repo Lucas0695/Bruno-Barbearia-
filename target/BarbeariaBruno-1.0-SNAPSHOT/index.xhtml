@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputScript library="js" name="/mascaraMonetaria/Parsers.js" />
+        <h:outputScript library="js" name="/mascaraMonetaria/JavaScriptUtil.js" />
+        <h:outputScript library="js" name="/mascaraMonetaria/InputMask.js" />   
+        <script language="JavaScript">
+            function mascaraMonetaria(arg) {
+                //Set up the NumberMasks
+                var separadorDecimal = ",";
+                var separadorMilhar = ".";
+
+                var formato = new NumberParser(2, separadorDecimal, separadorMilhar, true);
+                formato.currencySymbol = "R$";
+                formato.useCurrency = true;
+                formato.allowNegative = false;
+                formato.currencyInside = true;
+
+                if (arg.className.indexOf('mascaraMonetaria') == -1) {
+                    var mascaraMonetariaFinal = new NumberMask(formato, arg, 20);
+                    mascaraMonetariaFinal.leftToRight = true;
+                    arg.setAttribute('autocomplete', 'off');
+                    arg.className += ' mascaraMonetaria';
+                }
+            }
+        </script> 
+
+        <title>Bruno Barbearia</title>
+    </h:head>
+    <h:body style="background: black">
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" resizable="true" closable="false" collapsible="false" size="50" style="background: black" >
+                <center>
+                    <p:outputLabel value="Barbearia Bruno Oliveira" style="font-size: 30px"/>
+                </center>
+<!--                <div align="center">
+                                <img width="150" src="imagens/IMG-20181008-WA0016.jpg" alt=""/>
+                                <img src="imagens/IMG-20181008-WA0016" width="210" alt=""/>
+                            </div>-->
+
+
+
+            </p:layoutUnit>
+            <p:layoutUnit position="south" size="35" style="text-align: center">
+                <p:outputLabel value="Todos os direitos reservados 2019"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" size="180" resizable="false" closable="false" collapsible="true">
+                <h:form>
+                    <!--                                        <p:menu style="width: 160px" >-->
+<!--                    <p:menu style="background: white" >
+                        <p:submenu label="Cadastros"  rendered="true" style="background: white" >
+                            <p:menuitem rendered="{loginControle.validaMenu('ESTADO')}" value="Estado" ajax="false" action="/estado/listaestado"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('CIDADE')}" value="Cidade" ajax="false" action="/cidade/listacidade"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('PESSOA')}" value="Pessoa" ajax="false" action="/pessoa/listapessoa"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('GRUPOPRODUTO')}" value="Grupo de Produto" ajax="false" action="/grupoproduto/listagrupoproduto"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('PRODUTO')}" value="Produto" ajax="false" action="/produto/listaproduto"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('SERVICO')}" value="Serviço" ajax="false" action="/servico/listaservico"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('TAXACARTAO')}" value="Taxa de Cartões" ajax="false" action="/taxacartao/listataxacartao"/>
+                            <p:menuitem  value="Usuario" ajax="false" action="/usuario/usuariolista"/>
+                            <p:menuitem  value="Perfil" ajax="false" action="/perfil/perfillista"/>
+
+                        </p:submenu>
+                        <p:submenu label="Movimentos" rendered="true" style="background-color: white"> 
+                            <p:menuitem rendered="{loginControle.validaMenu('AGENDAMENTO')}" value="Agendamento de Horário" ajax="false" action="/agendamentohorario/agendamento"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('CONTASRECEBER')}" value="Contas a Receber" ajax="false" action="/contasreceber/contasreceberlista"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('CONTASPAGAR')}" value="Contas a Pagar" ajax="false" action="/contaspagar/contaspagarlista"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('COMPRA')}" value="Compra" ajax="false" action="/compra/listacompra"/> 
+                            <p:menuitem rendered="{loginControle.validaMenu('VENDA')}" value="Venda" ajax="false" action="/venda/listavenda"/> 
+                            <p:menuitem rendered="{loginControle.validaMenu('ORDEMSERVICO')}" value="Ordem de Serviço" ajax="false" action="/ordemservico/listaordemservico"/> 
+                        </p:submenu>
+                        <p:submenu label="Relatorios Cadastrais" rendered="true" style="background-color: white">                                                      
+                            <p:menuitem rendered="{loginControle.validaMenu('RELCIDADE')}" value="Cidade" ajax="false" action="/relatorios/relcidade"/>   
+                            <p:menuitem rendered="{loginControle.validaMenu('RELESTADO')}" value="Estado" ajax="false" action="/relatorios/relestado"/> 
+                            <p:menuitem rendered="{loginControle.validaMenu('RELCOLABORADOR')}" value="Colaborador" ajax="false" action="/relatorios/relcolaborador"/> 
+                            <p:menuitem rendered="{loginControle.validaMenu('RELGRUPOPRODUTO')}" value="Grupo de Produto" ajax="false" action="/relatorios/relgrupoproduto"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('RELGRUPOSERVICO')}" value="Grupo de Serviço" ajax="false" action="/relatorios/relgruposervico"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('RELSERVICO')}" value="Serviço" ajax="false" action="/relatorios/relservico"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('RELPRODUTO')}" value="Produto" ajax="false" action="/relatorios/relproduto"/>
+                            <p:menuitem rendered="{loginControle.validaMenu('RELTAXACARTAO')}" value="Taxa de Cartões" ajax="false" action="/relatorios/reltaxacartao"/>
+                        </p:submenu>
+                    </p:menu>     -->
+
+
+                        <p:menu style="background: white" >
+                        <p:submenu label="Cadastros"  rendered="true" style="background: white" >
+                            <p:menuitem value="Estado" ajax="false" action="/estado/listaestado"/>
+                            <p:menuitem value="Cidade" ajax="false" action="/cidade/listacidade"/>
+                            <p:menuitem value="Pessoa" ajax="false" action="/pessoa/listapessoa"/>
+                            <p:menuitem value="Grupo de Produto" ajax="false" action="/grupoproduto/listagrupoproduto"/>
+                            <p:menuitem value="Grupo de Servico" ajax="false" action="/gruposervico/listagruposervico"/>
+                            <p:menuitem value="Produto" ajax="false" action="/produto/listaproduto"/>
+                            <p:menuitem value="Serviço" ajax="false" action="/servico/listaservico"/>
+                            <p:menuitem value="Taxa de Cartões" ajax="false" action="/taxacartao/listataxacartao"/>
+                            <p:menuitem value="Usuario" ajax="false" action="/usuario/usuariolista"/>
+                            <p:menuitem value="Perfil" ajax="false" action="/perfil/perfillista"/>
+
+                        </p:submenu>
+                        <p:submenu label="Movimentos" rendered="true" style="background-color: white"> 
+                            <p:menuitem value="Agendamento de Horário" ajax="false" action="/agendamentohorario/agendamento"/>
+                            <p:menuitem value="Contas a Receber" ajax="false" action="/contasreceber/contasreceberlista"/>
+                            <p:menuitem value="Contas a Pagar" ajax="false" action="/contaspagar/contaspagarlista"/>
+                            <p:menuitem value="Compra" ajax="false" action="/compra/listacompra"/> 
+                            <p:menuitem value="Venda" ajax="false" action="/venda/listavenda"/> 
+                            <p:menuitem value="Ordem de Serviço" ajax="false" action="/ordemservico/listaordemservico"/> 
+                        </p:submenu>
+                        <p:submenu label="Relatorios Cadastrais" rendered="true" style="background-color: white">                                                      
+                            <p:menuitem value="Cidade" ajax="false" action="/relatorios/relcidade"/>   
+                            <p:menuitem value="Estado" ajax="false" action="/relatorios/relestado"/> 
+                            <p:menuitem value="Colaborador" ajax="false" action="/relatorios/relcolaborador"/> 
+                            <p:menuitem value="Grupo de Produto" ajax="false" action="/relatorios/relgrupoproduto"/>
+                            <p:menuitem value="Grupo de Serviço" ajax="false" action="/relatorios/relgruposervico"/>
+                            <p:menuitem value="Serviço" ajax="false" action="/relatorios/relservico"/>
+                            <p:menuitem value="Produto" ajax="false" action="/relatorios/relproduto"/>
+                            <p:menuitem value="Taxa de Cartões" ajax="false" action="/relatorios/reltaxacartao"/>
+                        </p:submenu>
+                    </p:menu>     
+
+                    
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" style="background: black">
+                <ui:insert id="corpo" name="body">
+                    Seja bem vindo!
+                </ui:insert>
+            </p:layoutUnit>
+
+        </p:layout>        
+    </h:body>
+</html>
+

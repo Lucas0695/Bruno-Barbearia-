@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h3 align="center">Cadastro de Produto</h3>
+            <h:form>
+                <p:growl autoUpdate="true"/>
+                <p:panelGrid columns="2">
+                    Nome:<p:inputText value="#{produtoControle.produto.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
+                    Preço:<p:inputText value="#{produtoControle.produto.valor}" 
+                                       required="true" 
+                                       requiredMessage="O preço é obrigatório!"
+                                       onkeydown="mascaraMonetaria(this)" 
+                                       converter="#{produtoControle.moneyConverter}"
+                                       />
+                    Estoque:<p:inputText value="#{produtoControle.produto.estoque}"  />
+                    
+                    Grupo de Produto:<p:selectOneMenu value="#{produtoControle.produto.grupoProduto}"
+                                                      converter="#{produtoControle.grupoProdutoConverter}">
+                        <f:selectItems value="#{produtoControle.listaGrupoProduto()}"
+                                       var="grup"
+                                       itemLabel="#{grup.nome}"
+                                       itemValue="#{grup}"/>                       
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="Salvar" actionListener="#{produtoControle.salvar()}" action="listaproduto" ajax="false"/>
+                    <p:commandButton value="Cancelar" action="listaproduto" immediate="true" ajax="false"/>
+                </p:panelGrid>            
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

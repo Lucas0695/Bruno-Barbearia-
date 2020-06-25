@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+        <h3 align="center">Movimento de venda</h3>
+        <h:form id="mensage">            
+            <p:dataTable value="#{vendaControle.listaTodos()}" var="e"
+                         paginator="true" rows="5">
+                <p:column headerText="Data da Venda" filterBy="#{e.dataVenda}" filterMatchMode="contains">
+                    <p:outputLabel value="#{e.dataVenda}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                    </p:outputLabel>
+                </p:column>
+                <p:column headerText="Cliente" filterBy="#{e.cliente.nome}" filterMatchMode="contains">
+                    #{e.cliente.nome}
+                </p:column>
+                <p:column headerText="Forma de Pagamento" filterBy="#{e.formapag}" filterMatchMode="contains">
+                    #{e.formapag}
+                </p:column>
+                <p:column headerText="Valor Total" filterBy="#{e.valorTotal}" filterMatchMode="contains">
+                    #{e.valorTotal}
+                </p:column>
+                <p:column headerText="Operações">
+                    <p:commandButton icon="ui-icon-closethick" actionListener="#{vendaControle.excluir(e)}" update="mensage" immediate="true" >
+                            <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" widgetVar="dlg3" height="" style="background-position:center ">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  ajax="false" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" ajax="true"/>
+                        </p:confirmDialog>
+
+                    <p:commandButton icon="ui-icon-pencil" actionListener="#{vendaControle.editar(e)}" action="editavenda" ajax="false"/>
+                </p:column>
+            </p:dataTable>
+            <p:commandButton value="Novo" actionListener="#{vendaControle.novo()}" action="editavenda" ajax="false"/>
+            <p:commandButton value="Voltar" action="../index"/>
+        </h:form>    
+        </ui:define>
+    </ui:composition>
+</html>
+

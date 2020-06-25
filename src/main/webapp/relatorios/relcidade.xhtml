@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h3 align="center">Relatório de Cidade</h3>
+            <h:form>
+                <p:panelGrid columns="2">  
+                    Sigla:<p:inputText value="#{relatorioControle.filtro}"/>
+                    <p:commandButton value="Gerar" action="#{relatorioControle.gerarRelatorioCidades()}" ajax="false" icon="ui-icon-disk" onclick="this.form.target='_blank'"/>
+                    <p:commandButton value="Voltar" action="../index"/>
+                </p:panelGrid>            
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

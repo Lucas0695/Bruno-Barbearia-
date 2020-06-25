@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h3 align="center">Cadastro de Taxa de Cartões</h3>
+            <h:form id="mensage">            
+                <p:dataTable value="#{taxaCartaoControle.listaTodos()}" var="t"
+                             paginator="true" rows="5">
+                    <p:column headerText="Código" filterBy="#{t.id}" filterMatchMode="contains">
+                        #{t.id}
+                    </p:column>
+                    <p:column headerText="Nome" filterBy="#{t.nome}" filterMatchMode="contains">
+                        #{t.nome}
+                    </p:column>
+                    <p:column headerText="Taxa" filterBy="#{t.taxa}" filterMatchMode="contains">
+                        #{t.taxa}
+                    </p:column>
+                    <p:column headerText="Operações">
+
+                        <p:commandButton icon="ui-icon-closethick" actionListener="#{taxaCartaoControle.excluir(t)}" update="mensage" immediate="true" >
+                            <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" widgetVar="dlg3" height="" style="background-position:center ">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  ajax="false" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" ajax="true"/>
+                        </p:confirmDialog>
+                        
+                        <p:commandButton icon="ui-icon-pencil" actionListener="#{taxaCartaoControle.editar(t)}" action="editataxacartao" ajax="false"/>
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Novo" actionListener="#{taxaCartaoControle.novo()}" action="editataxacartao"/>
+                <p:commandButton value="Voltar" action="../index"/>
+            </h:form>    
+        </ui:define>
+    </ui:composition>
+</html>
+

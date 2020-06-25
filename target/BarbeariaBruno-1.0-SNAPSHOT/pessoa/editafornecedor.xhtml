@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h3 align="center">Cadastro de Fornecedor</h3>
+            <h:form>
+                <p:growl autoUpdate="true"/>
+
+                <table>
+                    <tr><td align="center" width="1450"> 
+                            <p:selectOneRadio  value="#{fornecedorControle.tipoPessoa}"  layout="grid" columns="2">
+                                <f:selectItem itemLabel="Pessoa Fisica" itemValue="PessoaFisica"/> 
+                                <f:selectItem itemLabel="Pessoa Juridica" itemValue="PessoaJuridica"/>
+                                <p:ajax  update="painel"/>
+                            </p:selectOneRadio>    
+                        </td></tr>
+                </table>
+                <br/>
+
+                <p:panelGrid columns="4" id="painel">
+                    Nome:<p:inputText value="#{fornecedorControle.fornecedor.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
+
+                    <p:outputLabel value="CPF:" rendered="#{fornecedorControle.isPF()}"/>
+                    <p:inputMask value="#{fornecedorControle.fornecedor.cnpjCpf}" 
+                                 mask="999.999.999-99"
+                                 required="true"
+                                 size="25"
+                                 id="cpfCnpj1"
+                                 rendered="#{fornecedorControle.isPF()}"/>
+                    <p:outputLabel value="CNPJ:" rendered="#{fornecedorControle.isPJ()}"/>
+                    <p:inputMask value="#{fornecedorControle.fornecedor.cnpjCpf}" 
+                                 mask="99.999.999/9999-99"
+                                 required="true"
+                                 size="25"
+                                 id="cpfCnpj2"
+                                 rendered="#{fornecedorControle.isPJ()}"/>
+                    Telefone:<p:inputMask value="#{fornecedorControle.fornecedor.telefone}"
+                                          mask="(99) 9999-9999"
+                                          />
+                    <p:outputLabel value="IE:" rendered="#{fornecedorControle.isPJ()}"/>
+                    <p:inputText value="#{fornecedorControle.fornecedor.ie}" 
+                                 size="25"
+                                 rendered="#{fornecedorControle.isPJ()}"/>         
+
+                    Endereco:<p:inputText value="#{fornecedorControle.fornecedor.endereco}"/>
+                    Numero:<p:inputText value="#{fornecedorControle.fornecedor.numero}"/>
+                    Bairro:<p:inputText value="#{fornecedorControle.fornecedor.bairro}"/>
+                    Cidade:<p:autoComplete value="#{fornecedorControle.fornecedor.cidade}"
+                                           completeMethod="#{fornecedorControle.listaFiltrando}"
+                                           var="cid"
+                                           itemLabel="#{cid.nome}"
+                                           itemValue="#{cid}"
+                                           forceSelection="true"
+                                           converter="#{fornecedorControle.converterCidade}"/>
+                </p:panelGrid> 
+                <p:panelGrid class="2">
+                    <p:commandButton value="Salvar" actionListener="#{fornecedorControle.salvar()}" action="listapessoa" ajax="false"/>
+                    <p:commandButton value="Cancelar" action="listapessoa" immediate="true" ajax="false"/>
+                </p:panelGrid>            
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

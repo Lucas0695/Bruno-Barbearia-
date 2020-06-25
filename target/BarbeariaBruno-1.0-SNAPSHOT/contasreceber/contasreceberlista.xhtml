@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h1 align="center">Movimento de Contas a Receber</h1>        
+            <h:form id="mensage">                
+                <p:dataTable value="#{contasReceberControle.lista}" var="obj"
+                             paginator="true" rows="5" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="2,5,10,15"
+                             >
+                    <p:column headerText="Situação" filterBy="#{obj.situacao}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.situacao}" style="color: #{obj.situacao =='Aberto' ? 'red' : 'green'}"/>
+                    </p:column>
+                    <p:column headerText="Vencimento" filterBy="#{obj.dataVencimento}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.dataVencimento}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Cliente" filterBy="#{obj.cliente.nome}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.cliente.nome}"/>
+                    </p:column>
+                    <p:column headerText="Colaborador" filterBy="#{obj.colaborador.nome}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.colaborador.nome}"/>
+                    </p:column>
+                    <p:column headerText="Forma de Pagamento" filterBy="#{obj.formapag}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.formapag}"/>
+                    </p:column>
+                    <p:column headerText="Parcela" filterBy="#{obj.parcela}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.parcela}"/>
+                    </p:column>
+                    <p:column headerText="Total" filterBy="#{obj.valor}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.valor}" converter="#{contasReceberControle.moneyConverter}"/>
+                    </p:column>
+                    <p:column headerText="Baixado" filterBy="#{obj.totalBaixado}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.totalBaixado}" converter="#{contasReceberControle.moneyConverter}"/>
+                    </p:column>
+                    <p:column headerText="Operações" width="140">
+
+                        <p:commandButton icon="ui-icon-closethick" actionListener="#{contasReceberControle.excluir(obj)}" update="mensage" immediate="true" >
+                            <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" widgetVar="dlg3" height="" style="background-position:center ">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  ajax="false" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" ajax="true"/>
+                        </p:confirmDialog>
+                        
+                        <p:commandButton icon="ui-icon-pencil" 
+                                         ajax="false"
+                                         immediate="true"
+                                         action="contasreceberedita.xhtml"
+                                         actionListener="#{contasReceberControle.editar(obj)}"/>
+                        <p:commandButton icon="ui-icon-circle-arrow-s" 
+                                         ajax="false"
+                                         immediate="true"
+                                         action="baixacontasreceber.xhtml"
+                                         actionListener="#{contasReceberControle.novaBaixa(obj)}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Nova conta a receber" action="contasreceberedita"
+                                 actionListener="#{contasReceberControle.novo()}" ajax="false"/>
+                <p:commandButton value="Voltar" action="../index" ajax="false"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

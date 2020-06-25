@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h3 align="center">Cadastro de Servico</h3>
+            <h:form>
+                <p:growl autoUpdate="true"/>
+                <p:panelGrid columns="2">
+                    Nome:<p:inputText value="#{servicoControle.servico.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
+                    Preço:<p:inputText value="#{servicoControle.servico.valor}" 
+                                       required="true" 
+                                       requiredMessage="O preço é obrigatório!"
+                                       onkeydown="mascaraMonetaria(this)" 
+                                       converter="#{servicoControle.moneyConverter}"
+                                       />
+                    Grupo de Serviço:<p:selectOneMenu value="#{servicoControle.servico.grupoServico}"
+                                                      converter="#{servicoControle.grupoServicoConverter}">
+                        <f:selectItems value="#{servicoControle.listaGrupoServico()}"
+                                       var="grup"
+                                       itemLabel="#{grup.nome}"
+                                       itemValue="#{grup}"/>                       
+                    </p:selectOneMenu>
+                    
+                    <p:commandButton value="Salvar" actionListener="#{servicoControle.salvar()}" action="listaservico" ajax="false"/>
+                    <p:commandButton value="Cancelar" action="listaservico" immediate="true" ajax="false"/>
+                </p:panelGrid>            
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

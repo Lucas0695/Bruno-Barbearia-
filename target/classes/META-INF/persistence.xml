@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="SystemServicePU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <non-jta-data-source/>
+    <class>entidade.BaixaContasReceber</class>
+    <class>entidade.BaixaContasPagar</class>
+    <class>entidade.Cidade</class>
+    <class>entidade.Cliente</class>
+    <class>entidade.Colaborador</class>
+    <class>entidade.ContasReceber</class>
+    <class>entidade.ContasPagar</class>
+    <class>entidade.Estado</class>
+    <class>entidade.Fornecedor</class>
+    <class>entidade.GrupoProduto</class>
+    <class>entidade.GrupoServico</class>
+    <class>entidade.ItensServico</class>
+    <class>entidade.ItensCompra</class>
+    <class>entidade.OrdemServico</class>
+    <class>entidade.Pessoa</class>
+    <class>entidade.Produto</class>
+    <class>entidade.Servico</class>
+    <class>entidade.TaxaCartao</class>
+    <class>entidade.Compra</class>
+    <class>entidade.Venda</class>
+    <class>entidade.ItensVenda</class>
+    <class>entidade.AgendamentoHorario</class>
+    <class>entidade.Usuario</class>
+    <class>entidade.Perfil</class>
+    <class>entidade.Permissoes</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/barbearia"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="postgres"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+</persistence>

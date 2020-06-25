@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h1 align="center">Cadastro de Perfil</h1>        
+            <h:form>
+                <p:growl autoUpdate="true"/>
+                <p:panelGrid columns="2">                
+                    Nome:<p:inputText value="#{perfilControle.per.nome}" 
+                                      required="true"
+                                      requiredMessage="O nome é obrigatório!"
+                                      size="50"
+                                      id="nome"/>
+                </p:panelGrid>                
+                <p:panel header="Permissões">
+                    <p:panelGrid columns="3">
+                        Permissão:<p:selectOneMenu value="#{perfilControle.permissoes.nome}">
+                            <f:selectItem itemLabel="Estado" itemValue="ESTADO"/>
+                            <f:selectItem itemLabel="Cidade" itemValue="CIDADE"/>
+                            <f:selectItem itemLabel="Pessoa" itemValue="PESSOA"/>
+                            <f:selectItem itemLabel="Grupo de serviço" itemValue="GRUPOSERVICO"/>
+                            <f:selectItem itemLabel="Grupo de Produto" itemValue="GRUPOPRODUTO"/>
+                            <f:selectItem itemLabel="Produto" itemValue="PRODUTO"/>
+                            <f:selectItem itemLabel="Serviço" itemValue="SERVICO"/>
+                            <f:selectItem itemLabel="Taxa de Cartão" itemValue="TAXACARTAO"/>
+                            <f:selectItem itemLabel="Usuario" itemValue="USUARIO"/>
+                            <f:selectItem itemLabel="Perfil" itemValue="PERFIL"/>
+                            <f:selectItem itemLabel="Agendamento de Horario" itemValue="AGENDAMENTO"/>
+                            <f:selectItem itemLabel="Contas a Pagar" itemValue="CONTASPAGAR"/>
+                            <f:selectItem itemLabel="Contas a Receber" itemValue="CONTASRECEBER"/>
+                            <f:selectItem itemLabel="Compra" itemValue="COMPRA"/>
+                            <f:selectItem itemLabel="Venda" itemValue="VENDA"/>
+                            <f:selectItem itemLabel="Relatório de Cidade" itemValue="RELCIDADE"/>
+                            <f:selectItem itemLabel="Relatório de Estado" itemValue="RELESTADO"/>
+                            <f:selectItem itemLabel="Relatório de Colaborador" itemValue="RELCOLABORADOR"/>
+                            <f:selectItem itemLabel="Relatório de Grupo de Produto" itemValue="RELGRUPOPRODUTO"/>
+                            <f:selectItem itemLabel="Relatório de Grupo de Serviço" itemValue="RELGRUPOSERVICO"/>
+                            <f:selectItem itemLabel="Relatório de Serviço" itemValue="RELSERVICO"/>
+                            <f:selectItem itemLabel="Relatório de Produto" itemValue="RELPRODUTO"/>
+                            <f:selectItem itemLabel="Relatório de Taxa de Cartão" itemValue="RELTAXACARTAO"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="Adicionar" ajax="false" action="perfiledita" actionListener="#{perfilControle.adicionar()}"/>                        
+                    </p:panelGrid>
+                    <p:dataTable value="#{perfilControle.per.permissoes}" var="p">
+                        <p:column headerText="Nome">
+                            #{p.nome}
+                        </p:column>
+                    </p:dataTable>
+
+                </p:panel>
+
+                <p:commandButton value="Salvar" 
+                                 actionListener="#{perfilControle.salvar()}"
+                                 action="perfillista"
+                                 ajax="false" />
+                <p:commandButton value="Voltar" 
+                                 action="perfillista"
+                                 ajax="false" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

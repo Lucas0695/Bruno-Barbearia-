@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+        <h3 align="center">Cadastro de Cidade</h3>
+        <h:form id="mensage">            
+            <p:dataTable value="#{cidadeControle.listaTodos()}" var="cid"
+                         paginator="true" rows="5" emptyMessage="Nenhuma cidade cadastrada!" style="background: white">
+                <p:column headerText="Código" filterBy="#{cid.id}" filterMatchMode="contains" style="background: white">
+                    #{cid.id}
+                </p:column>
+                <p:column headerText="Nome" filterBy="#{cid.nome}" filterMatchMode="contains" style="background: white">
+                    #{cid.nome}
+                </p:column>
+                <p:column headerText="Estado" filterBy="#{cid.estado.nome}" filterMatchMode="contains" style="background: white">
+                    #{cid.estado.nome}
+                </p:column>
+                <p:column headerText="Sigla" filterBy="#{cid.estado.uf}" filterMatchMode="contains" style="background: white">
+                    #{cid.estado.uf}
+                </p:column>
+                <p:column headerText="Operações" style="background: white">
+                    <p:commandButton icon="ui-icon-closethick" actionListener="#{cidadeControle.excluir(cid)}" update="mensage" immediate="true" >
+                            <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" widgetVar="dlg3" height="" style="background-position:center ">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  ajax="false" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" ajax="true"/>
+                        </p:confirmDialog>
+
+                    <p:commandButton icon="ui-icon-pencil" actionListener="#{cidadeControle.editar(cid)}" action="editacidade" ajax="false"/>
+                </p:column>
+            </p:dataTable>
+            <p:commandButton value="Novo" actionListener="#{cidadeControle.novo()}" action="editacidade"/>
+            <p:commandButton value="Voltar" action="../index"/>
+        </h:form>    
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelServico" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="77369e6c-0cc4-4040-9978-65368ceb33ff">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="filtro" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     servico."id" as servico_id,
+     servico."nome" AS servico_nome,
+     servico."valor" AS servico_valor,
+     servico."gruposervico_id" AS  servico_gruposervico_id,
+     gruposervico."nome" AS gruposervico_nome
+FROM
+     "public"."gruposervico" gruposervico INNER JOIN "public"."servico" servico ON gruposervico."id" = servico."gruposervico_id"
+
+WHERE
+     gruposervico.nome like $P{filtro}]]>
+	</queryString>
+	<field name="servico_id" class="java.lang.Long"/>
+	<field name="servico_nome" class="java.lang.String"/>
+	<field name="servico_valor" class="java.lang.Double"/>
+	<field name="servico_gruposervico_id" class="java.lang.Long"/>
+	<field name="gruposervico_nome" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="e4a168ae-cd0f-4f19-935d-a8be9ccec043"/>
+				<staticText>
+					<reportElement x="20" y="20" width="347" height="43" forecolor="#000000" uuid="114469ce-14b3-4461-8ea8-fd77941269ce"/>
+					<textElement>
+						<font fontName="Times New Roman" size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatório de Serviço]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="63" width="180" height="20" forecolor="#000000" uuid="cc7c59d2-f029-4a94-ac57-ad4bcebadbe0"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Barbearia]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="152bda62-a403-471c-bc13-d20c6c7fee6c"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="67154dee-ce9c-4cc0-a1d7-dfaa6beff596"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="185" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="d253c800-b250-416c-8893-2eafe54d2f6e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="370" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="03d74acd-f009-473e-b78a-067172f47c7a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grupo de Serviço]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="e287a260-f1bb-4824-9545-9937648a800c"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="185" height="20" uuid="a5857bf3-c1be-464f-bde8-7bea0c7049df"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servico_nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="185" y="0" width="185" height="20" uuid="73e85640-b3f2-4744-bf8a-32d4fb09d786"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servico_valor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="370" y="0" width="185" height="20" uuid="e3cbcccc-8448-46d6-96fc-2c57ee999c9b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gruposervico_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" forecolor="#FFFFFF" backcolor="#000000" uuid="65ded7ee-38eb-41db-a8aa-46c020d68405"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" forecolor="#FFFFFF" backcolor="#000000" uuid="0b8f68dd-f914-466a-8e4a-295f637ea3b3"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" forecolor="#FFFFFF" uuid="00013caa-165a-4079-a7c4-599617ecc995"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

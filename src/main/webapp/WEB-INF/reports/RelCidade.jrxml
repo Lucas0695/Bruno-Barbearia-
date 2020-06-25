@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelCidade" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57b7a2a7-c4ff-4558-8930-7a746fdd53b2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="filtro" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="param" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     cidade."id" AS cidade_id,
+     cidade."nome" AS cidade_nome,
+     cidade."estado_id" AS cidade_estado_id,
+     estado."nome" AS estado_nome,
+     estado."uf" AS estado_uf,
+     estado."id" AS estado_id
+FROM
+     "public"."estado" estado INNER JOIN "public"."cidade" cidade ON estado."id" = cidade."estado_id"
+WHERE
+     estado.nome like $P{filtro}]]>
+	</queryString>
+	<field name="cidade_id" class="java.lang.Long"/>
+	<field name="cidade_nome" class="java.lang.String"/>
+	<field name="cidade_estado_id" class="java.lang.Long"/>
+	<field name="estado_nome" class="java.lang.String"/>
+	<field name="estado_uf" class="java.lang.String"/>
+	<field name="estado_id" class="java.lang.Long"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#000000" uuid="ddbe98fd-b278-4366-95ab-d89fbcff3e38"/>
+				<staticText>
+					<reportElement x="20" y="20" width="333" height="56" forecolor="#FFFFFF" uuid="2a1f89a7-eb90-444b-ac57-5bc46b59d873"/>
+					<textElement>
+						<font fontName="Times New Roman" size="34" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Relatório de Cidade]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="56" width="180" height="20" forecolor="#FFFFFF" uuid="0979741c-a81b-4b8e-b664-48647ca2dd34"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Barbearia]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="e9896a55-ee87-45e4-a089-c49dd2b91450"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="277" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="96469347-620b-420d-b998-050fef6da652"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="277" y="0" width="277" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="2dde6978-dc41-4974-b222-2191e746d91e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="4029a7e4-6017-4a45-be28-5689b0f6e6ae"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="277" height="20" uuid="704d4025-2692-4205-ab84-ec497fe43ebe"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cidade_nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="277" y="0" width="277" height="20" uuid="a2cbc98d-64b0-4d66-a1a6-40c4ba0879ab"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado_uf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="d3556442-eab7-4335-8c87-258adf04df21"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="9972e259-95ef-4468-8ac5-756fccbe43b8"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="a57c8ae0-0f20-41d1-9ece-a95903495904"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+	<noData>
+		<band height="111">
+			<staticText>
+				<reportElement x="347" y="50" width="100" height="20" uuid="fe60fc8d-c329-4cff-9494-507cd4b6cfea"/>
+				<text><![CDATA[sem result]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="53" width="100" height="20" uuid="149e61dc-d092-41cb-a71f-4cd894cad23a"/>
+				<textFieldExpression><![CDATA[$P{filtro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</noData>
+</jasperReport>
